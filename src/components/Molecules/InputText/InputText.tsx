@@ -9,7 +9,7 @@ const InputContainer = styled(
   clsx('border border-grey-light rounded-[14px]'),
 );
 
-const Label = styled(Text, clsx('text-purple font-semibold mb-4'));
+const Label = styled(Text, clsx('text-purple font-normal mb-3'));
 
 type Props = {
   label: string;

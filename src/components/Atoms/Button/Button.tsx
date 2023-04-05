@@ -10,8 +10,8 @@ const buttonTypes = {
 };
 
 const textType = {
-  solid: styled(Text.Body16, clsx('text-center text-white font-bold')),
-  text: styled(Text.Body16, clsx('text-center text-purple font-bold')),
+  solid: styled(Text, clsx('text-center text-white font-bold')),
+  text: styled(Text, clsx('text-center text-purple font-bold')),
 };
 
 const Container = styled(Pressable, clsx('py-5 rounded-lg'));
