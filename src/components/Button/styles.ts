@@ -1,4 +1,5 @@
 import {StyleSheet, TextStyle} from 'react-native';
+import colors from '../../utils/colors';
 
 const baseFont: TextStyle = {
   fontWeight: '700',
@@ -8,7 +9,7 @@ const baseFont: TextStyle = {
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: '#4F63AC',
+    backgroundColor: colors.purple,
     paddingVertical: 20,
     borderRadius: 8,
   },
@@ -17,11 +18,11 @@ const styles = StyleSheet.create({
     paddingVertical: 30,
   },
   solidText: {
-    color: '#fff',
+    color: colors.white,
     ...baseFont,
   },
   transparentText: {
-    color: '#4F63AC',
+    color: colors.purple,
     ...baseFont,
   },
 });
