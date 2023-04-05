@@ -1,13 +1,11 @@
 import React from 'react';
 import {SafeAreaView} from 'react-native';
-import Splash from './src/screens/auth/Splash/Splash';
+import SignUpView from './src/screens/auth/SignUp/SignUp.view';
 
 function App(): JSX.Element {
-  // const [theme, setTheme] = useState('light');
-
   return (
     <SafeAreaView>
-      <Splash />
+      <SignUpView />
     </SafeAreaView>
   );
 }
