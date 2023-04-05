@@ -2,8 +2,7 @@ import clsx from 'clsx';
 import {styled} from 'nativewind';
 import React from 'react';
 import {Image, View} from 'react-native';
-import Button from '../../../components/Button/Button';
-import Text from '../../../components/Text/Text';
+import {Button, Text} from '../../../components/Atoms';
 
 const Container = styled(
   View,
