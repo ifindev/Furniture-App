@@ -1,7 +1,24 @@
+import clsx from 'clsx';
+import {styled} from 'nativewind';
 import React from 'react';
-import {Image, Text, View} from 'react-native';
+import {Image, View} from 'react-native';
 import Button from '../../../components/Button/Button';
-import styles from './styles';
+import Text from '../../../components/Text/Text';
+
+const Container = styled(
+  View,
+  clsx('p-9 flex flex-col justify-center items-center h-screen gap-10'),
+);
+const TextContainer = styled(View, clsx('flex flex-col gap-1'));
+const ButtonContainer = styled(View, clsx('w-full'));
+const SigninButtonContainer = styled(View, clsx('w-full mt-4'));
+
+const SplashImage = styled(Image, clsx('w-full h-[200px]'));
+const NormalText = styled(Text.HeadingOne, clsx('text-center'));
+const ColoredText = styled(
+  Text.HeadingOne,
+  clsx('text-center text-orange underline'),
+);
 
 function Splash() {
   const handlePress = () => {
@@ -9,23 +26,20 @@ function Splash() {
   };
 
   return (
-    <View style={styles.container}>
-      <Image
-        style={styles.image}
-        source={require('../../../assets/splash.png')}
-      />
-      <View style={styles.textContainer}>
-        <Text style={styles.title}>You'll Find</Text>
-        <Text style={styles.title}>
-          <Text style={styles.innerTitle}>All you need</Text>
-        </Text>
-        <Text style={styles.title}>Here!</Text>
-      </View>
-      <View style={styles.widthContainer}>
-        <Button title="Sign Up" onPress={handlePress} />
-        <Button.Transparent title="Sign In" onPress={handlePress} />
-      </View>
-    </View>
+    <Container>
+      <SplashImage source={require('../../../assets/splash.png')} />
+      <TextContainer>
+        <NormalText>You'll Find</NormalText>
+        <ColoredText>All you need</ColoredText>
+        <NormalText>Here!</NormalText>
+      </TextContainer>
+      <ButtonContainer>
+        <Button text="Sign Up" onPress={handlePress} />
+        <SigninButtonContainer>
+          <Button text="Sign In" buttonType="text" onPress={handlePress} />
+        </SigninButtonContainer>
+      </ButtonContainer>
+    </Container>
   );
 }
 

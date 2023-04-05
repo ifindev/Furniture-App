@@ -1,29 +1,32 @@
-import React from 'react';
-import {Pressable, Text, TouchableOpacity} from 'react-native';
-import styles from './styles';
+import clsx from 'clsx';
+import {styled} from 'nativewind';
+import React, {useMemo} from 'react';
+import {Pressable, PressableProps} from 'react-native';
+import Text from '../Text/Text';
 
-type Props = {
-  title: string;
-  onPress: () => void;
+const buttonTypes = {
+  solid: clsx('bg-purple'),
+  text: clsx('bg-transparent border-transparent'),
 };
 
-function Button({title, onPress}: Props) {
-  return (
-    <TouchableOpacity
-      activeOpacity={0.6}
-      style={styles.button}
-      onPress={onPress}>
-      <Text style={styles.solidText}>{title}</Text>
-    </TouchableOpacity>
-  );
+const textType = {
+  solid: styled(Text.Body16, clsx('text-center text-white font-bold')),
+  text: styled(Text.Body16, clsx('text-center text-purple font-bold')),
+};
+
+const Container = styled(Pressable, clsx('py-5 rounded-lg'));
+
+interface Props extends Pick<PressableProps, 'onPress'> {
+  buttonType?: 'solid' | 'text';
+  text: string;
 }
 
-function Transparent({title, onPress}: Props) {
+export default function Button({buttonType = 'solid', text, onPress}: Props) {
+  const TextBody = useMemo(() => textType[buttonType], [buttonType]);
+
   return (
-    <Pressable style={styles.buttonTransparent} onPress={onPress}>
-      <Text style={styles.transparentText}>{title}</Text>
-    </Pressable>
+    <Container className={buttonTypes[buttonType]} onPress={onPress}>
+      <TextBody>{text}</TextBody>
+    </Container>
   );
 }
-
-export default Object.assign(Button, {Transparent});
