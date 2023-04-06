@@ -3,16 +3,16 @@ import {styled} from 'nativewind';
 import React, {useState} from 'react';
 import {StyleSheet, View} from 'react-native';
 import ChevronBack from '../../../assets/chevron-back.svg';
-import {Button, Checkbox, Text} from '../../../components/Atoms';
+import {Button, Checkbox, Separator, Text} from '../../../components/Atoms';
 import {InputText} from '../../../components/Molecules';
 
 const Container = styled(View, clsx('flex flex-col h-screen  w-screen p-9'));
 const HeaderContainer = styled(
   View,
-  clsx('flex flex-row items-center w-full justify-start gap-4'),
+  'flex flex-row items-center w-full justify-start gap-4',
 );
 const InputContainer = styled(View, clsx('flex flex-col mt-12'));
-
+const SeparatorContainer = styled(View, clsx('my-6'));
 const HeaderText = styled(Text.HeadingThree, clsx('text-purple'));
 
 type SignUpData = {
@@ -62,6 +62,7 @@ export default function SignUp() {
           onChangeText={(val: string) => handleChangeValue(val, 'email')}
         />
         <InputText
+          isPassword
           label="Password"
           placeholder="password"
           value={formValue.password}
@@ -79,10 +80,14 @@ export default function SignUp() {
         </View>
       </View>
       <Button text="Sign Up" onPress={handleSignUp} />
+      <SeparatorContainer>
+        <Separator text="Or sign up with" />
+      </SeparatorContainer>
     </Container>
   );
 }
 
+/** These styles are needed because there are bugs when styling with nativewind */
 const styles = StyleSheet.create({
   inputContainer: {
     gap: 20,
