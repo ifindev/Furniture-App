@@ -21,7 +21,7 @@ interface Props extends Pick<TouchableOpacityProps, 'onPress'> {
   text: string;
 }
 
-export default function Button({buttonType = 'solid', text, onPress}: Props) {
+function Button({buttonType = 'solid', text, onPress}: Props) {
   const TextBody = useMemo(() => textType[buttonType], [buttonType]);
 
   return (
@@ -33,3 +33,5 @@ export default function Button({buttonType = 'solid', text, onPress}: Props) {
     </Container>
   );
 }
+
+export default React.memo(Button);

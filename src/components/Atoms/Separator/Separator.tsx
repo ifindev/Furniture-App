@@ -14,7 +14,7 @@ type Props = {
   text: string;
 };
 
-export default function Separator({text}: Props) {
+function Separator({text}: Props) {
   return (
     <Container>
       <Line />
@@ -23,3 +23,5 @@ export default function Separator({text}: Props) {
     </Container>
   );
 }
+
+export default React.memo(Separator);

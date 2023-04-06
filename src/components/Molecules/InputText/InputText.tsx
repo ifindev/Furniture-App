@@ -23,7 +23,7 @@ type Props = {
   onChangeText: (value: string) => void;
 };
 
-export default function InputText({
+function InputText({
   label,
   value,
   placeholder,
@@ -55,3 +55,5 @@ export default function InputText({
     </View>
   );
 }
+
+export default React.memo(InputText);

@@ -16,10 +16,12 @@ type Props = {
   onChecked: () => void;
 };
 
-export default function Checkbox({checked, onChecked}: Props) {
+function Checkbox({checked, onChecked}: Props) {
   return (
     <Container className={clsx(checked && 'bg-grey-light')} onPress={onChecked}>
       {checked && <Checkmark width={15} height={15} />}
     </Container>
   );
 }
+
+export default React.memo(Checkbox);

@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import {styled} from 'nativewind';
-import React, {useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import {StyleSheet, View} from 'react-native';
 import ChevronBack from '../../../assets/chevron-back.svg';
 import {Button, Checkbox, Separator, Text} from '../../../components/Atoms';
@@ -29,18 +29,39 @@ export default function SignUp() {
     password: '',
   });
 
-  const handleChangeValue = (
-    val: string,
-    type: 'name' | 'email' | 'password',
-  ) => {
-    setFormValue(prev => {
-      return {...prev, [type]: val};
-    });
-  };
+  const handleChangeValue = useCallback(
+    (val: string, type: 'name' | 'email' | 'password') => {
+      setFormValue(prev => {
+        return {...prev, [type]: val};
+      });
+    },
+    [],
+  );
 
-  const handleSignUp = () => {
+  const handleSignUp = useCallback(() => {
     console.log('signing up');
-  };
+  }, []);
+
+  const handleChangeEmail = useCallback(
+    (val: string) => {
+      handleChangeValue(val, 'email');
+    },
+    [handleChangeValue],
+  );
+
+  const handleChangeName = useCallback(
+    (val: string) => {
+      handleChangeValue(val, 'name');
+    },
+    [handleChangeValue],
+  );
+
+  const handleChangePassword = useCallback(
+    (val: string) => {
+      handleChangeValue(val, 'password');
+    },
+    [handleChangeValue],
+  );
 
   return (
     <Container>
@@ -53,20 +74,20 @@ export default function SignUp() {
           label="Name"
           placeholder="John Doe"
           value={formValue.name}
-          onChangeText={(val: string) => handleChangeValue(val, 'name')}
+          onChangeText={handleChangeName}
         />
         <InputText
           label="Email"
           placeholder="example@gmail.com"
           value={formValue.email}
-          onChangeText={(val: string) => handleChangeValue(val, 'email')}
+          onChangeText={handleChangeEmail}
         />
         <InputText
           isPassword
           label="Password"
           placeholder="password"
           value={formValue.password}
-          onChangeText={(val: string) => handleChangeValue(val, 'password')}
+          onChangeText={handleChangePassword}
         />
       </InputContainer>
       <View style={styles.checkboxContainer}>
