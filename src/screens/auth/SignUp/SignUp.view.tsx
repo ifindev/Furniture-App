@@ -1,12 +1,11 @@
 import clsx from 'clsx';
 import {styled} from 'nativewind';
-import React from 'react';
+import React, {useCallback, useState} from 'react';
 import {StyleSheet, View} from 'react-native';
 import ChevronBack from '../../../assets/chevron-back.svg';
 import GoogleSignin from '../../../assets/google-signin.svg';
 import {Button, Checkbox, Separator, Text} from '../../../components/Atoms';
 import {InputText} from '../../../components/Molecules';
-import useSignUpViewModel from './SignUp.viewModel';
 
 const Container = styled(View, clsx('flex flex-col h-screen  w-screen p-9'));
 const HeaderContainer = styled(
@@ -27,8 +26,52 @@ const SignInContainer = styled(TermsPrivacyContainer, clsx('mt-6'));
 const HeaderText = styled(Text.HeadingThree, clsx('text-purple'));
 const StyledView = styled(View);
 
+type SignUpData = {
+  name: string;
+  email: string;
+  password: string;
+};
+
 export default function SignUp() {
-  const {values, handlers} = useSignUpViewModel();
+  const [checkboxChecked, setCheckboxChecked] = useState(false);
+  const [formValue, setFormValue] = useState<SignUpData>({
+    name: '',
+    email: '',
+    password: '',
+  });
+
+  const handleChangeValue = useCallback(
+    (val: string, type: 'name' | 'email' | 'password') => {
+      setFormValue(prev => {
+        return {...prev, [type]: val};
+      });
+    },
+    [],
+  );
+
+  const handleSignUp = useCallback(() => {
+    console.log('signing up');
+  }, []);
+
+  const handleChangeEmail = useCallback(
+    (val: string) => {
+      handleChangeValue(val, 'email');
+    },
+    [handleChangeValue],
+  );
+
+  const handleChangeName = useCallback(
+    (val: string) => {
+      handleChangeValue(val, 'name');
+    },
+    [handleChangeValue],
+  );
+  const handleChangePassword = useCallback(
+    (val: string) => {
+      handleChangeValue(val, 'password');
+    },
+    [handleChangeValue],
+  );
 
   return (
     <Container>
@@ -40,34 +83,34 @@ export default function SignUp() {
         <InputText
           label="Name"
           placeholder="John Doe"
-          value={values.formValue.name}
-          onChangeText={handlers.handleNameChange}
+          value={formValue.name}
+          onChangeText={handleChangeName}
         />
         <InputText
           label="Email"
           placeholder="example@gmail.com"
-          value={values.formValue.email}
-          onChangeText={handlers.handleEmailChange}
+          value={formValue.email}
+          onChangeText={handleChangeEmail}
         />
         <InputText
           isPassword
           label="Password"
           placeholder="password"
-          value={values.formValue.password}
-          onChangeText={handlers.handlePasswordChange}
+          value={formValue.password}
+          onChangeText={handleChangePassword}
         />
       </InputContainer>
       <StyledView className="flex flex-row items-center justify-start gap-0 my-6">
         <Checkbox
-          checked={values.checkboxChecked}
-          onChecked={handlers.handleCheckbox}
+          checked={checkboxChecked}
+          onChecked={() => setCheckboxChecked(prev => !prev)}
         />
         <TermsPrivacyContainer>
           <Text className="text-purple font-normal">I agree with </Text>
           <Text className="text-purple font-bold">Terms & Privacy</Text>
         </TermsPrivacyContainer>
       </StyledView>
-      <Button text="Sign Up" onPress={handlers.handleSignUp} />
+      <Button text="Sign Up" onPress={handleSignUp} />
       <SeparatorContainer>
         <Separator text="Or" />
       </SeparatorContainer>
@@ -83,7 +126,7 @@ export default function SignUp() {
         <Text className="text-purple font-normal">
           Already have an account?
         </Text>
-        <Text className="text-purple font-bold pl-1">Sign In</Text>
+        <Text className="text-purple font-bold">Sign In</Text>
       </SignInContainer>
     </Container>
   );
