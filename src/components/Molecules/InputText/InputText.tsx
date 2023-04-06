@@ -8,7 +8,7 @@ import {Text} from '../../Atoms';
 
 const InputContainer = styled(
   View,
-  clsx('border border-grey-light rounded-[14px] relative'),
+  clsx('border border-grey-light rounded-lg relative'),
 );
 
 const Label = styled(Text, clsx('text-purple font-normal mb-3'));

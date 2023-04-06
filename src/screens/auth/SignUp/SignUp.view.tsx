@@ -3,6 +3,7 @@ import {styled} from 'nativewind';
 import React, {useCallback, useState} from 'react';
 import {StyleSheet, View} from 'react-native';
 import ChevronBack from '../../../assets/chevron-back.svg';
+import GoogleSignin from '../../../assets/google-signin.svg';
 import {Button, Checkbox, Separator, Text} from '../../../components/Atoms';
 import {InputText} from '../../../components/Molecules';
 
@@ -13,7 +14,17 @@ const HeaderContainer = styled(
 );
 const InputContainer = styled(View, clsx('flex flex-col mt-12'));
 const SeparatorContainer = styled(View, clsx('my-6'));
+const GoogleButtonContainer = styled(
+  View,
+  clsx('flex flex-row items-center gap-4'),
+);
+const TermsPrivacyContainer = styled(
+  View,
+  clsx('flex flex-row items-center justify-center gap-0 pl-3'),
+);
+const SignInContainer = styled(TermsPrivacyContainer, clsx('mt-6'));
 const HeaderText = styled(Text.HeadingThree, clsx('text-purple'));
+const StyledView = styled(View);
 
 type SignUpData = {
   name: string;
@@ -55,7 +66,6 @@ export default function SignUp() {
     },
     [handleChangeValue],
   );
-
   const handleChangePassword = useCallback(
     (val: string) => {
       handleChangeValue(val, 'password');
@@ -90,20 +100,34 @@ export default function SignUp() {
           onChangeText={handleChangePassword}
         />
       </InputContainer>
-      <View style={styles.checkboxContainer}>
+      <StyledView className="flex flex-row items-center justify-start gap-0 my-6">
         <Checkbox
           checked={checkboxChecked}
           onChecked={() => setCheckboxChecked(prev => !prev)}
         />
-        <View style={styles.termsPrivacyContainer}>
+        <TermsPrivacyContainer>
           <Text className="text-purple font-normal">I agree with </Text>
           <Text className="text-purple font-bold">Terms & Privacy</Text>
-        </View>
-      </View>
+        </TermsPrivacyContainer>
+      </StyledView>
       <Button text="Sign Up" onPress={handleSignUp} />
       <SeparatorContainer>
-        <Separator text="Or sign up with" />
+        <Separator text="Or" />
       </SeparatorContainer>
+
+      <Button buttonType="secondary">
+        <GoogleButtonContainer>
+          <GoogleSignin />
+          <Text className="text-white font-bold">Sign Up with Google</Text>
+        </GoogleButtonContainer>
+      </Button>
+
+      <SignInContainer>
+        <Text className="text-purple font-normal">
+          Already have an account?
+        </Text>
+        <Text className="text-purple font-bold">Sign In</Text>
+      </SignInContainer>
     </Container>
   );
 }
@@ -112,18 +136,5 @@ export default function SignUp() {
 const styles = StyleSheet.create({
   inputContainer: {
     gap: 20,
-  },
-  checkboxContainer: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'flex-start',
-    gap: 13,
-    marginVertical: 24,
-  },
-  termsPrivacyContainer: {
-    display: 'flex',
-    flexDirection: 'row',
-    gap: 0,
   },
 });
